@@ -27,7 +27,7 @@ void menu(){
 	Nodo *Arbol = NULL;
 	int opcion, n, numDatos, cont = 0, x, a;
 	do{
-		printf("\n*****MENU*****\n");
+		printf("\n*****MENU ARBOL BINARIO*****\n");
 		printf("\n1. Insertar Elementos en el Arbol");
 		printf("\n2. Mostrar Elementos del Arbol");
 		printf("\n3. Buscar Elementos del Arbol");
@@ -160,7 +160,7 @@ void post_orden(Nodo *Arbol){
     else{
         post_orden(Arbol->izquierdo);
         post_orden(Arbol->derecho);
-        printf("%d",Arbol->dato);
+        printf("%d ",Arbol->dato);
     }
 }
 
@@ -170,7 +170,7 @@ void pre_orden(Nodo *Arbol){
         return;
     }
     else{
-        printf("%d",Arbol->dato);
+        printf("%d ",Arbol->dato);
         pre_orden(Arbol->izquierdo);
         pre_orden(Arbol->derecho);
 
@@ -184,29 +184,29 @@ void in_orden(Nodo *Arbol){
     }
     else{
         in_orden(Arbol->izquierdo);
-        printf("%d",Arbol->dato);
+        printf("%d ",Arbol->dato);
         in_orden(Arbol->derecho);
 
     }
 }
 
 
-void modificar_nodo(nodo *&Arbol, int a){
+void modificar_nodo(Nodo *&Arbol, int a){
     int x, y;
-    if(arbol==NULL){
+    if(Arbol==NULL){
         return;
     }else{
-        if(arbol->dato==a){
+        if(Arbol->dato==a){
             printf("Ingrese nuevo dato: ");
             scanf("%d",&x);
-            arbol->dato=x;
+            Arbol->dato=x;
         }else{
             printf("Buscar 1.Izquierda  2.Derecha: ");
             scanf("%d",&y);
             if(y==1){
-                busqueda(Arbol->izq,a);
+                busqueda(Arbol->izquierdo,a);
             }else{
-                busqueda(Arbol->der,a);
+                busqueda(Arbol->derecho,a);
             }
         }
     }
