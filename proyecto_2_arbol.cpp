@@ -10,7 +10,7 @@ struct Nodo{
 
 void menu();
 int pedirDatos();
-void insertarElementosArbol(Nodo *&Arbol, int n);
+void insertar_nodo(Nodo *&, int);
 void imprimirArbol(Nodo *Arbol, int cont);
 bool busqueda(Nodo *, int);
 void modificar_nodo(Nodo *&, int);
@@ -19,13 +19,14 @@ void pre_orden(Nodo *);
 void in_orden(Nodo *);
 
 int main(){
+    Nodo *Arbol=NULL;
 	menu();
 	return 0;
 }
 
 void menu(){
 	Nodo *Arbol = NULL;
-	int opcion, n, numDatos, cont = 0, x, a;
+	int opcion, n, numDatos, cont = 0, x, a, y;
 	do{
 		printf("\n*****MENU ARBOL BINARIO*****\n");
 		printf("\n1. Insertar Elementos en el Arbol");
@@ -39,15 +40,17 @@ void menu(){
 			case 0:
 				exit(0);
 				break;
-			case 1:
-				printf("\nIngrese el numero de nodos a insertar: ");
-				scanf("%d", &numDatos);
-				while(numDatos != 0){
-					n = pedirDatos();
-					insertarElementosArbol(Arbol, n);
-					numDatos -= 1;
-				}
-				break;
+
+			case 1:{
+			    do{
+               printf("Ingrese dato: ");
+               scanf("%d",&a);
+               insertar_nodo(Arbol,a);
+               printf("Ingresar mas datos 1.SI  2.NO: ");
+               scanf("%d",&y);
+            }while(y==1);
+            }break;
+
 			case 2:{
             system("cls");
             printf("1. Mostrar arbol en preorden\n");
@@ -98,6 +101,16 @@ void menu(){
 	}while(opcion != 0);
 }
 
+Nodo *crear_nodo(int a){
+    Nodo *nuevo_nodo=(Nodo*)malloc(sizeof(Nodo));
+    nuevo_nodo->dato=a;
+    nuevo_nodo->izquierdo=NULL;
+    nuevo_nodo->derecho=NULL;
+
+    return nuevo_nodo;
+}
+
+
 int pedirDatos(){
 	int n;
 	printf("\nIngrese un valor a insertar: ");
@@ -105,23 +118,23 @@ int pedirDatos(){
 	return n;
 }
 
-void insertarElementosArbol(Nodo *&Arbol, int n){
-	int valorRaiz;
-	if(Arbol == NULL){
-		Nodo *nuevoNodo = reservar_memoria;
-		nuevoNodo -> dato = n;
-		nuevoNodo -> izquierdo = NULL;
-		nuevoNodo -> derecho = NULL;
-		Arbol = nuevoNodo;
-	}else{
-		valorRaiz = Arbol -> dato;
-		if(n > valorRaiz){
-			insertarElementosArbol(Arbol -> derecho, n);
-		}else{
-			insertarElementosArbol(Arbol -> izquierdo, n);
-		}
-	}
+
+void insertar_nodo(Nodo *&Arbol, int a){
+    int x;
+    if(Arbol==NULL){
+        Nodo *nuevo=crear_nodo(a);
+        Arbol=nuevo;
+    }else{
+        printf("Insertar 1.Izquierda  2.Derecha: ");
+        scanf("%d",&x);
+        if(x==1){
+            insertar_nodo(Arbol->izquierdo,a);
+        }else{
+            insertar_nodo(Arbol->derecho,a);
+        }
+    }
 }
+
 
 void imprimirArbol(Nodo *Arbol, int cont){
 	int i;
